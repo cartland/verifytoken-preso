@@ -1,8 +1,8 @@
 var SLIDE_CONFIG = {
   // Slide settings
   settings: {
-    title: 'Cross-Platform Auth<br>with Google+ Sign-In',
-    subtitle: 'Google+ Platform',
+    title: 'Verifying Tokens',
+    subtitle: 'When, Why, and How',
     //eventInfo: {
     //  title: 'Google I/O',
     //  date: '5/16/2013'
@@ -24,14 +24,14 @@ var SLIDE_CONFIG = {
   presenters: [{
     name: 'Chris Cartland',
     company: 'Developer Programs Engineer',
-    gplus: 'https://plus.google.com/+ChrisCartland',
+    gplus: 'https://plus.google.com/+GooglePlusDevelopers',
   //  twitter: '@yourhandle',
   //  www: 'http://www.you.com',
   //  github: 'http://github.com/you'
   }, {
     name: 'Francis Ma',
     company: 'Product Manager',
-    gplus: 'https://plus.google.com/+FrancisMa',
+    gplus: '',
   //  twitter: '@yourhandle',
   //  www: 'http://www.you.com',
   //  github: 'http://github.com/you'
