@@ -29,7 +29,7 @@ var SLIDE_CONFIG = {
   //  www: 'http://www.you.com',
   //  github: 'http://github.com/you'
   }, {
-    name: 'Francis Ma',
+    name: 'Yaniv Yaakubovich',
     company: 'Product Manager',
     gplus: '',
   //  twitter: '@yourhandle',

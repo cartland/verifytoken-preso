@@ -53,8 +53,16 @@ URL: https://code.google.com/p/io-2012-slides
       <h2>When</h2>
     </hgroup>
     <article class="flexbox vcenter" class="larger">
-      <img width="300px" src="images/hero1.jpg" alt="Client Talking To Your Server" title="Client Talking To Your Server"><br />
-      <img width="300px" src="images/hero1.jpg" alt="Client Talking To Your Server" title="Client Talking To Your Server"><br />
+      <img width="400px" src="images/verify-request.png" alt="Client Talking To Your Server" title="Client Talking To Your Server"><br />
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>When</h2>
+    </hgroup>
+    <article class="flexbox vcenter" class="larger">
+      <img width="400px" src="images/verify-request-focus.png" alt="Client Talking To Your Server" title="Client Talking To Your Server"><br />
     </article>
   </slide>
 
@@ -80,13 +88,141 @@ URL: https://code.google.com/p/io-2012-slides
 
   <slide>
     <hgroup>
-      <h2>Why</h2>
+      <h2>Android</h2>
+      <h3>Authorization Code<h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="Android">
+try {
+  <b>String code = GoogleAuthUtil.getToken(this,
+      mPlusClient.getAccountName(),
+      "oauth2:server:client_id:" + CLIENT_ID
+      + ":api_scope:" + TextUtils.join(' ', SCOPES));</b>
+} catch (UserRecoverableAuthException e) {
+  // Recover
+} catch (Exception e) {
+  throw new RuntimeException(e);
+}
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Android</h2>
+      <h3>ID Token</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="Android">
+try {
+  <b>String id_token = GoogleAuthUtil.getToken(this,
+      mPlusClient.getAccountName(),
+      "audience:server:client_id:" + CLIENT_ID);</b>
+} catch (UserRecoverableAuthException e) {
+  // Recover
+} catch (Exception e) {
+  throw new RuntimeException(e);
+}
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Android</h2>
+      <h3>Access Token</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="Android">
+try {
+  <b>String access_token = GoogleAuthUtil.getToken(this,
+      mPlusClient.getAccountName(),
+      "oauth2:" + TextUtils.join(' ', SCOPES));</b>
+} catch (UserRecoverableAuthException e) {
+  // Recover
+} catch (Exception e) {
+  throw new RuntimeException(e);
+}
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Web</h2>
+      <h3>Sign-In Button</h3>
+    </hgroup>
+    <article class="larger">
+      <pre class="prettyprint" data-lang="HTML">
+&lt;span id="signinButton"&gt;
+  &lt;span
+    class="g-signin"
+    <b>data-callback="signinCallback"</b>
+    data-clientid="CLIENT_ID"
+    data-cookiepolicy="single_host_origin"
+    data-scope="https://www.googleapis.com/auth/plus.login"&gt;
+  &lt;/span&gt;
+&lt;/span&gt;
+
+&lt;!-- Place plusone.js asynchronous JavaScript
+     just before your &lt;/body&gt; tag -->
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Web</h2>
+      <h3>Callback</h3>
+    </hgroup>
+    <article class="larger">
+      <pre class="prettyprint" data-lang="JavaScript">
+function <b>signinCallback(authResult)</b> {
+  <b>if (authResult['access_token']) {
+    var code = authResult['code'];
+    var id_token = authResult['code'];
+    var access_token = authResult['access_token'];
+    // Send authorization code
+  }</b> else if (authResult['error']) {
+    // User is not signed in.
+  }
+}
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>iOS</h2>
+      <h3>Access Token Only</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="Objective-C">
+<b>- (void)finishedWithAuth:(GTMOAuth2Authentication *)auth
+                   error:(NSError *)error {
+  NSString *accessToken = auth.accessToken;</b>
+  if (error) {
+    signInAuthStatus_.text =
+        [NSString stringWithFormat:@"Status: Authentication error: %@", error];
+    return;
+  }
+  [self reportAuthStatus];
+}
+</pre>
+    </article>
+    <img class="corner-placemark" src="images/server-auth.png" class="reflect" alt="Server Auth" title="Server Auth">
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Why Verify</h2>
     </hgroup>
     <article class="flexbox vcenter">
       <ul>
         <li>Invalid tokens (obvious)</li>
         <li>Tokens for other apps</li>
       </ul>
+      <img width="400px" src="images/verify-request-bad.png" alt="Client Talking To Your Server" title="Client Talking To Your Server"><br />
     </article>
   </slide>
 
@@ -99,6 +235,7 @@ URL: https://code.google.com/p/io-2012-slides
         <li>Good tokens are made by Google</li>
         <li>Check that tokens are for your app</li>
       </ul>
+      <img width="400px" src="images/verify-request-bad.png" alt="Client Talking To Your Server" title="Client Talking To Your Server"><br />
     </article>
   </slide>
 
